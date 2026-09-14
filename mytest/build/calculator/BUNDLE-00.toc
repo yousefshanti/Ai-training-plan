@@ -1,0 +1,3 @@
+([('calculator',
+   '/Users/yousefshanti/Desktop/flowless-ai-training/dist/calculator',
+   'EXECUTABLE')],)
