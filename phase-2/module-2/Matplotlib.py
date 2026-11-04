@@ -59,4 +59,4 @@ axes[1, 2].legend(fontsize=8)
 plt.tight_layout()
 plt.show()
 
-fig.savefig('eda_dashboard.png', dpi=300, bbox_inches='tight')
+#fig.savefig('eda_dashboard.png', dpi=300, bbox_inches='tight')
