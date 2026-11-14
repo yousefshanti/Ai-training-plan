@@ -40,7 +40,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 # %%
-df = pd.read_csv('/Users/yousefshanti/Desktop/flowless-ai-training/phase-2/module-1/water_meter_readings.csv')
+df = pd.read_csv('/Users/yousefshanti/Desktop/flowless-ai-training/phase-2/module-1-data-fundamentals/water_meter_readings.csv')
 
 totals = df.groupby('Meter_ID')['Water_Volume'].sum()
 totals

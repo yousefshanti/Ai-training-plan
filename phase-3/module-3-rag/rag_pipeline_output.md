@@ -17,7 +17,7 @@ PDF_PATH = "water_doc.pdf"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 LLM_MODEL = "openai/gpt-oss-120b"   # llama-3.3-70b-versatile was retired on Groq (404)
 
-# Key lives in phase-3/.env (git-ignored), never in this file.
+# Key lives in .env next to this file (git-ignored), never in this file.
 if os.path.exists(".env"):
     for line in open(".env"):
         k, _, v = line.strip().partition("=")

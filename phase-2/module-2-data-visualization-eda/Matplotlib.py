@@ -2,7 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('/Users/yousefshanti/Desktop/flowless-ai-training/phase-2/module-1/water_meter_readings.csv')
+df = pd.read_csv('/Users/yousefshanti/Desktop/flowless-ai-training/phase-2/module-1-data-fundamentals/water_meter_readings.csv')
 df['DateTime'] = pd.to_datetime(df['DateTime'])
 df = df.sort_values('DateTime')
 
