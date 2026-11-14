@@ -1,0 +1,811 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Flowless AI Training Roadmap</title><meta name="data-notion-page-icon" content="🎎"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8E%8E%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="c7520fd6-daf0-826a-b4dc-01f2661709a1" class="page sans" data-notion-page-icon="🎎"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="🎎"></span></div><h1 class="page-title" dir="auto">Flowless AI Training Roadmap</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h2 id="d6c20fd6-daf0-82df-860d-81de7add425c" class="" dir="auto">Important Notes</h2><details id="91620fd6-daf0-82a7-92e2-81b7a140af70" open="" class="toggle" dir="auto"><summary><strong>📚 General Guidelines &amp; Progress Tracking</strong></summary><div class="indented"><h4 id="f3320fd6-daf0-8267-adf3-01ae62b84874" class="" dir="auto">🎯 General Tips</h4><ul id="24e20fd6-daf0-83de-a7c7-0174b2021e51" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📖Always refer to official documentation for the latest features and best practices</li></ul><ul id="4b620fd6-daf0-829e-b06c-014de1f37cbe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⏱️Follow the suggested timeline but adjust based on your learning pace</li></ul><ul id="31320fd6-daf0-8322-85aa-018d0441ca0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📝Keep notes and document your learning journey</li></ul></div></details><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.125em;line-height:1.3;margin:0"><h4 id="bca20fd6-daf0-82e4-a6b6-81c90027f3c9" style="display:inline-block">🐙 Track Progress on GitHub</h4></summary><div class="indented"><ul id="6d320fd6-daf0-82f0-a77a-81d18a59a7aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📦Create a repository for your training projects and exercises</li></ul><ul id="c5b20fd6-daf0-8370-9d29-016ed2ac01de" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📊Use GitHub Issues to track completed modules and tasks</li></ul><ul id="e1520fd6-daf0-8371-af26-0193c17193c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">💾Commit your code regularly with descriptive commit messages</li></ul><ul id="23b20fd6-daf0-8269-9214-017bd7f6f195" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📈Create a README.md to showcase your progress and completed projects</li></ul><ul id="f9320fd6-daf0-8304-ba49-01a83fb5114a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🏷️Use tags/releases to mark milestones (e.g., &quot;Phase 1 Complete&quot;, &quot;RAG Project Done&quot;)</li></ul></div></details><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.125em;line-height:1.3;margin:0"><h4 id="ffc20fd6-daf0-830e-ab11-81cbec23fd7f" style="display:inline-block">💬 Share Progress on Flowless Discord</h4></summary><div class="indented"><ul id="7b220fd6-daf0-8397-92dd-8128970c73d0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📢Share your training progress in the <strong>#training-team</strong> channel on Flowless Discord</li></ul><ul id="87720fd6-daf0-83a9-b70b-812031cab9e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅Post updates when you complete modules or milestones</li></ul><ul id="17920fd6-daf0-8322-beae-813f4b5bfba7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📊Share your progress percentage and completed tasks</li></ul><p id="4f920fd6-daf0-83fe-8c81-017c3a0f6ea5" class="" dir="auto"><strong>📝 Example Format:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="58120fd6-daf0-82be-8a13-0142cdc8ed7c" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">[AI-phase#] Module Name — Completed ✅</code></pre><p id="d8a20fd6-daf0-8227-b7e9-01401ea37ab8" class="" dir="auto">Replace <code>phase#</code> with your phase number (1, 2, or 3) and <code>Module Name</code> with the actual module name.</p></div></details><p id="e2020fd6-daf0-83a5-b076-01dd0473f77a" class="" dir="auto">
+</p><hr id="93b20fd6-daf0-836e-aa02-81bae053a18a" dir="auto"/><h2 id="f2220fd6-daf0-83cf-9183-816b79c39abc" class="" dir="auto"><strong>🚀 AI Training Plan</strong></h2><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><h1 id="b7620fd6-daf0-833a-a913-8114a8e417cd" style="display:inline-block"><strong>PHASE 1: Foundations</strong></h1></summary><div class="indented"><ul id="be420fd6-daf0-8270-8916-017dc97f0e74" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Python Fundamentals &amp; Data Basics</strong><h3 id="2b720fd6-daf0-8271-bb72-812cd4397b55" class="" dir="auto">Learning Objectives</h3><ul id="0e920fd6-daf0-834d-872e-818adf9ed663" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Master Python programming essentials</li></ul><ul id="32a20fd6-daf0-83e4-a905-81d0fa778ad5" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Understand data structures and manipulation</li></ul><ul id="a7d20fd6-daf0-8227-80fa-81f768c1c3fe" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Set up development environment and write some code during watching the course</li></ul><ul id="9e920fd6-daf0-8368-bb96-81c24d861864" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Set up jupyter Notebook for the next step</li></ul></li></ul><details id="dcb20fd6-daf0-83be-84d1-013125451020" open="" class="toggle" dir="auto"><summary><strong>Resources to learn </strong></summary><div class="indented"><ul id="f3c20fd6-daf0-8222-b446-01a9ba5a7caf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">You can start with this course in order to learn the basics <a href="https://www.youtube.com/playlist?list=PLQVvvaa0QuDe8XSftW-RAxdo6OmaeL85M">https://www.youtube.com/playlist?list=PLQVvvaa0QuDe8XSftW-RAxdo6OmaeL85M</a></li></ul><ul id="b6620fd6-daf0-8208-a02d-0174a46bee18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Check the documentation for extra knowledge. <a href="https://docs.python.org/3/">https://docs.python.org/3/</a></li></ul></div></details><details id="ac120fd6-daf0-838e-8909-015a202dd856" open="" class="toggle" dir="auto"><summary><strong>Search Task</strong></summary><div class="indented"><ul id="e3420fd6-daf0-83af-929f-0179891daa01" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Search online for Jupyter Notebook, learn what it is, how to install it</li></ul><ul id="a2d20fd6-daf0-829f-be2d-81c6c6d3c95c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">read at least <strong>two different methods</strong> of installing it (e.g., via <code>pip</code>, via Anaconda/conda)</li></ul><ul id="71e20fd6-daf0-82a1-9071-81a9c8f0ed71" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Launching Jupyter Notebook inside VS Code or any other IDE, creating a simple notebook file, and writing at least one Python Scripts from your thoughts</li></ul></div></details><details id="39520fd6-daf0-82a3-850e-0169e0308c9e" open="" class="toggle" dir="auto"><summary><strong>Github Fundumentals</strong></summary><div class="indented"><ul id="aa320fd6-daf0-839d-bc6e-811de1eb895f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">GitHub Course :<p id="ea920fd6-daf0-833a-b256-8105830a24b8" class="" dir="auto"><a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR">https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR</a></p></li></ul><ul id="9b320fd6-daf0-8357-be2a-81178573af03" class="bulleted-list" dir="auto"><li style="list-style-type:disc">GitHub CLI Crash Course:<p id="bb520fd6-daf0-82c8-98f5-01238fa8ae9c" class="" dir="auto"><a href="https://www.youtube.com/watch?v=BRAG1Kj4-Ss">https://www.youtube.com/watch?v=BRAG1Kj4-Ss</a></p></li></ul></div></details></div></details><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><h1 id="bfe20fd6-daf0-824b-84e7-01a3b911b18a" style="display:inline-block">PHASE 2: Data Analysis &amp; Data Science</h1></summary><div class="indented"><details id="d3e20fd6-daf0-830c-9704-01bb848fbc31" open="" class="toggle" dir="auto"><summary><strong>Module 1: Data Fundamentals</strong></summary><div class="indented"><p id="62220fd6-daf0-8367-ad7f-0132234e62be" class="" dir="auto"><strong>Learning Objectives</strong></p><ul id="b6b20fd6-daf0-823c-88cc-01f639d9eab4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Master Pandas for data manipulation</li></ul><ul id="21720fd6-daf0-82bb-a17d-018b7eef4698" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand NumPy for numerical computing</li></ul><ul id="3e920fd6-daf0-8350-83c9-011b50e0750d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Learn data loading and cleaning techniques</li></ul><details id="72620fd6-daf0-828b-8357-01f1502bb068" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><details id="c6d20fd6-daf0-8204-ac08-01e4c6ae34c2" open="" class="toggle" dir="auto"><summary>Pandas </summary><div class="indented"><ul id="8bd20fd6-daf0-8311-bd3a-81f064aa0855" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.kaggle.com/learn/pandas">https://www.kaggle.com/learn/pandas</a></li></ul><ul id="cea20fd6-daf0-8339-89aa-019cf1be3c9a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Check Documantion for extra knowaldge: <a href="https://pandas.pydata.org/docs/">https://pandas.pydata.org/docs/</a></li></ul></div></details><details id="7fa20fd6-daf0-8351-a357-012f53c18cd8" open="" class="toggle" dir="auto"><summary>NumPy</summary><div class="indented"><ul id="f1b20fd6-daf0-83d7-94bb-014bb094ed57" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.kaggle.com/code/iamramzanai/numpy-tutorial-beginner-to-advanced">https://www.kaggle.com/code/iamramzanai/numpy-tutorial-beginner-to-advanced</a></li></ul><ul id="6e420fd6-daf0-8209-8635-81117d5770b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Check Documantion for extra knowaldge: <a href="https://numpy.org/learn/">https://numpy.org/learn/</a></li></ul></div></details></div></details><details id="16320fd6-daf0-82e8-a8b3-0138f01c9056" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><ul id="f8020fd6-daf0-82ec-8f93-81ed507dd8d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task: Water Meter Data Loading and Exploration</strong><details id="e6520fd6-daf0-8202-9496-817515ef72f3" open="" class="toggle" dir="auto"><summary><strong>Problem Statement</strong></summary><div class="indented"><p id="ba420fd6-daf0-8349-a94a-012210fb0351" class="" dir="auto">Load water meter readings data from multiple sensors/meters and perform basic exploration to identify data quality issues and consumption patterns.</p></div></details><details id="d7920fd6-daf0-83e4-a055-813ecbfc2b33" open="" class="toggle" dir="auto"><summary><strong>File </strong></summary><div class="indented"><figure id="71120fd6-daf0-8232-a188-819d924319c1" dir="ltr"><div class="source"><a href="Flowless%20AI%20Training%20Roadmap/water_meter_readings.csv" data-notion-file="Flowless%20AI%20Training%20Roadmap/water_meter_readings.csv" data-notion-file-alias="water_meter_readings.csv">water_meter_readings.csv</a></div></figure></div></details><details id="89c20fd6-daf0-82f0-9378-01a2def7c6dd" open="" class="toggle" dir="auto"><summary><strong>Requirements</strong></summary><div class="indented"><ul id="09520fd6-daf0-8362-adde-813ad9f27d50" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Use Jupyter Notebook or any prefer tool </li></ul><ul id="36220fd6-daf0-83b5-8031-816a18834ddd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Load CSV file with water meter data</li></ul><ul id="ae220fd6-daf0-828d-a9cc-81f37602f4be" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Display sensor information</li></ul><ul id="cdd20fd6-daf0-836f-a103-81ce7d4f3e1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Check data types and missing values</li></ul><ul id="29420fd6-daf0-82bf-b6b1-8135d0e2549f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identify any duplicate readings</li></ul><ul id="71720fd6-daf0-838a-96bc-81df1169b084" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identify outliers using statistical methods</li></ul><details id="b3d20fd6-daf0-830c-b479-0133e2a7e4c5" open="" class="toggle" dir="auto"><summary>Think of some cases in the data, ask related questions, and try to answer them</summary><div class="indented"><details id="e8e20fd6-daf0-83a2-ad43-81079e2b73da" open="" class="toggle" dir="auto"><summary>Example </summary><div class="indented"><ul id="5c820fd6-daf0-82a6-aeef-01e1ffe6fc8c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Which meter recorded the highest flow rate in the dataset?</li></ul><ul id="79e20fd6-daf0-82d0-87ea-011891945a21" class="bulleted-list" dir="auto"><li style="list-style-type:disc">What is the average water temperature for <strong>METER_003</strong>?</li></ul><ul id="2b720fd6-daf0-839f-9918-017c856744bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">How much total water volume was recorded by <strong>METER_005</strong> on <strong>2024-01-01</strong>?</li></ul><ul id="10f20fd6-daf0-8391-b070-81508f1707fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Filter data by meter</li></ul><ul id="70320fd6-daf0-822c-a88d-81b756c0a03f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Group data by meter and time periods</li></ul><details id="a8820fd6-daf0-83a8-aa7e-81d8fe0a8279" open="" class="toggle" dir="auto"><summary>Calculate total, average, and peak consumption</summary><div class="indented"><ul id="8c720fd6-daf0-8244-832a-017e2fbdf031" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Total</strong> = sum of water volume over the period</li></ul><ul id="cc920fd6-daf0-8233-893c-8179a53a4339" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Average</strong> = mean water volume</li></ul><ul id="41a20fd6-daf0-83e5-ac22-81418a744870" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Peak</strong> = max water volume</li></ul></div></details><details id="8db20fd6-daf0-8255-b4bf-8191208448e0" open="" class="toggle" dir="auto"><summary>Identify consumption trends</summary><div class="indented"><p id="2d720fd6-daf0-8377-9c21-81cd5291ec67" class="" dir="auto">Track how flow or volume changes over time for a meter.</p></div></details><details id="57d20fd6-daf0-8391-b5f2-01b806e0acc8" open="" class="toggle" dir="auto"><summary>Compare meters for anomalies</summary><div class="indented"><p id="fd520fd6-daf0-8220-846d-01982123fc09" class="" dir="auto">Look for meters with unusually high or low flow, pressure, or water volume compared to others.</p></div></details></div></details><ul id="28120fd6-daf0-82e0-a946-812e5d8c5451" class="bulleted-list" dir="auto"><li style="list-style-type:disc">think with more cases here </li></ul></div></details><ul id="0ea20fd6-daf0-8240-8e02-81e237753c1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Write your final results as a Markdown report inside the Jupyter Notebook.</li></ul></div></details></li></ul><p id="6a820fd6-daf0-8222-b1c4-0177dae4bfa7" class="" dir="auto">
+</p></div></details></div></details><details id="74720fd6-daf0-83cc-96c6-813890dce536" open="" class="toggle" dir="auto"><summary><strong>Module 2: Data Visualization &amp; EDA</strong></summary><div class="indented"><h3 id="d6a20fd6-daf0-82eb-899b-0116982f48ba" class="" dir="auto">Learning Objectives</h3><ul id="6ba20fd6-daf0-8380-b64f-0158e66e806e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Create effective data visualizations</li></ul><ul id="0e220fd6-daf0-838e-8e97-018636404327" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Perform exploratory data analysis</li></ul><ul id="a8820fd6-daf0-82d7-9ae1-01619d84737d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Communicate insights through plots</li></ul><details id="76220fd6-daf0-833a-9b2a-019563b1cc27" open="" class="toggle" dir="auto"><summary><strong>Resources for learn </strong></summary><div class="indented"><details id="64d20fd6-daf0-8365-9de4-81a25ff78c44" open="" class="toggle" dir="auto"><summary><strong>Matplotlib resources</strong></summary><div class="indented"><ul id="54420fd6-daf0-8306-9a63-01c7474d9920" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.youtube.com/watch?v=UO98lJQ3QGI&amp;list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_&amp;index=1">https://www.youtube.com/watch?v=UO98lJQ3QGI&amp;list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_&amp;index=1</a></li></ul><ul id="9ca20fd6-daf0-83e1-a5f6-8133504681c9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://matplotlib.org/">https://matplotlib.org/</a></li></ul></div></details><details id="5bd20fd6-daf0-83ec-b251-01b4bb96bfa3" open="" class="toggle" dir="auto"><summary><strong>Plotly Documentation</strong></summary><div class="indented"><p id="45d20fd6-daf0-8264-8aeb-01aec1d7da48" class="" dir="auto"><a href="https://plotly.com/python/">https://plotly.com/python/</a></p></div></details></div></details><details id="8c720fd6-daf0-8379-b309-8197a632a574" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><ul id="20720fd6-daf0-8343-8b6b-81c10ff91866" class="bulleted-list" dir="auto"><li style="list-style-type:disc">use the same water meter data</li></ul><ul id="d2b20fd6-daf0-826b-9b2b-81f1b7faee32" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Choose either Matplotlib or Plotly to create visualizations for the analysis questions</li></ul><ul id="26120fd6-daf0-82dd-abff-81fe9ee52643" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Create 6+ visualization types </li></ul><ul id="4f520fd6-daf0-83d5-924e-810a91b7690d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Show consumption trends over time</li></ul><ul id="0b020fd6-daf0-8303-b16d-01bb1fb95489" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Display meter comparisons</li></ul><ul id="37120fd6-daf0-82d3-8e0d-8168d3f53417" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Highlight anomalies</li></ul><ul id="6c420fd6-daf0-837c-b254-810fa5278497" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Add proper labels and legends<strong><br/></strong></li></ul><p id="45920fd6-daf0-8249-89c7-810b5db41fc0" class="" dir="auto">
+</p></div></details></div></details><details id="b0d20fd6-daf0-835e-9dd3-01ba9d8ab15e" open="" class="toggle" dir="auto"><summary><strong>Module 3: Time Series Data Analysis</strong></summary><div class="indented"><h3 id="8c920fd6-daf0-839c-8871-811df5a016cc" class="" dir="auto">Learning Objectives</h3><ul id="1f920fd6-daf0-824a-82aa-812419ba13fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand time series data structure</li></ul><ul id="96920fd6-daf0-8251-89bb-81b8a93beaea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Perform trend and seasonality analysis</li></ul><ul id="f1220fd6-daf0-837c-9c32-017a7a699603" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Time series preprocessing and feature engineering</li></ul><details id="e4920fd6-daf0-83c8-97ce-01d7500b0a1f" open="" class="toggle" dir="auto"><summary><strong>Resources for learn </strong></summary><div class="indented"><ul id="b1e20fd6-daf0-838c-bf1d-81258c3e1121" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.youtube.com/watch?v=GE3JOFwTWVM&amp;t=6s">https://www.youtube.com/watch?v=GE3JOFwTWVM&amp;t=6s</a></li></ul><ul id="55120fd6-daf0-8322-9386-81f05dfaf8b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.youtube.com/watch?v=fxx_E0ojKrc">https://www.youtube.com/watch?v=fxx_E0ojKrc</a></li></ul><ul id="10b20fd6-daf0-821a-a34b-01401fb6adf4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pandas Time Series Guide: </strong><a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">https://pandas.pydata.org/docs/user_guide/timeseries.html</a></li></ul></div></details><details id="6b020fd6-daf0-82dd-9e32-815f6867101e" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><details id="a1f20fd6-daf0-825b-9044-019110bf6e1a" open="" class="toggle" dir="auto"><summary>Problem</summary><div class="indented"><p id="b9720fd6-daf0-83a6-98af-019cea3caf1d" class="" dir="auto">using the <code>daily_water_consumption.csv</code> dataset, you should perform time series forecasting to predict <strong>daily water usage for each zone</strong> for the next 7 days. This task will allow you to demonstrate knowledge of baseline models, ARIMA, exogenous features, cross-validation, prediction intervals, and evaluation metrics.</p></div></details><details id="12e20fd6-daf0-836b-a801-010af39a2874" open="" class="toggle" dir="auto"><summary>File</summary><div class="indented"><figure id="9d620fd6-daf0-83cd-9ead-01cdfff20423" dir="ltr"><div class="source"><a href="Flowless%20AI%20Training%20Roadmap/daily_water_consumption.csv" data-notion-file="Flowless%20AI%20Training%20Roadmap/daily_water_consumption.csv" data-notion-file-alias="daily_water_consumption.csv">daily_water_consumption.csv</a></div></figure><p id="30320fd6-daf0-8397-a226-813f23b08e87" class="" dir="auto">
+</p><p id="cea20fd6-daf0-83e6-ad17-01932ecc782f" class="" dir="auto">
+</p></div></details><details id="2cc20fd6-daf0-8248-a23f-01941dbd33fc" open="" class="toggle" dir="auto"><summary>Requirements</summary><div class="indented"><ul id="7f420fd6-daf0-8209-9246-01b387ae47f6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Load dataset and convert <code>Date</code> to datetime index.</li></ul><ul id="9f620fd6-daf0-8381-8552-811c3735080a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ensure daily frequency per zone.</li></ul><ul id="47b20fd6-daf0-8216-b9e6-01ae2142319a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Check for missing values.</li></ul><ul id="e0a20fd6-daf0-837b-866b-811647a7c9c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Plot <code>Residential_Usage</code> trends per zone.</li></ul><ul id="b9520fd6-daf0-83b4-9848-81f97f567897" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Apply naive forecast (previous day value).</li></ul><ul id="60620fd6-daf0-83c5-926a-81eeac0d3ed1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Apply moving average forecast.</li></ul><ul id="44720fd6-daf0-828d-9117-8163527b00f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Compute MAE and RMSE for baseline models.</li></ul><ul id="dfb20fd6-daf0-8214-b9bc-01dc11d45d98" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fit ARIMA model to each zone’s residential usage.</li></ul><ul id="32520fd6-daf0-8303-9480-812ce8bfa157" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forecast next 7 days.</li></ul><ul id="f0320fd6-daf0-83db-9088-01418aba894c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Plot predicted vs actual values.</li></ul><ul id="34f20fd6-daf0-8239-a3c2-0137d53f2a06" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Apply rolling window cross-validation.</li></ul><ul id="56120fd6-daf0-83b3-bb11-812a1046c25c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evaluate performance with MAE, RMSE, MAPE.</li></ul><ul id="f6720fd6-daf0-83ca-a7bb-018423b36517" class="bulleted-list" dir="auto"><li style="list-style-type:disc">(Optional) Include exogenous features (<code>Pressure_Avg</code>, <code>Leakage_Estimate</code>) in ARIMA.</li></ul><ul id="1b220fd6-daf0-83c0-9d1e-015f0ab1d38e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Generate prediction intervals and plot them.</li></ul><ul id="f2220fd6-daf0-827a-a33e-01a0c64f7764" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Report best model per zone based on metrics.</li></ul><ul id="e2920fd6-daf0-82e8-a8d6-01454cb36fd4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Deliver notebook with code, plots, and forecasts.</li></ul><ul id="a6f20fd6-daf0-8267-8f70-81f550b1f7d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Provide 7-day forecast table for each zone.</li></ul></div></details></div></details></div></details><details id="66320fd6-daf0-83b2-b5fb-01c7aee9e390" open="" class="toggle" dir="auto"><summary><mark class="highlight-red_background" data-notion-highlight="red_background"><strong>Module 4: Geospatial Data Analysis</strong></mark></summary><div class="indented"><h3 id="06b20fd6-daf0-8227-a159-010e4c53c360" class="" dir="auto">Learning Objectives</h3><ul id="7ce20fd6-daf0-829a-8e69-018e1312c9ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Work with geographic data formats</li></ul><ul id="7fa20fd6-daf0-8358-9d5c-01a618cc5166" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Create spatial visualizations and maps</li></ul><ul id="1aa20fd6-daf0-82ab-906a-8120677d2be3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Perform geospatial calculations</li></ul><h3 id="ce420fd6-daf0-82c2-8f49-8169eac46f44" class="" dir="auto">Free Resources</h3><ul id="a1b20fd6-daf0-83d8-ac21-01fbb8f4bbb3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Geopandas Documentation:</strong> <a href="https://geopandas.org/">https://geopandas.org/</a></li></ul></div></details><p id="7f720fd6-daf0-8321-ace0-81139c7f50c9" class="" dir="auto">
+</p><p id="2be20fd6-daf0-8208-8cfa-81a4ff880025" class="" dir="auto">
+</p><p id="fcc20fd6-daf0-82c2-b893-81e6dcbdc4b6" class="" dir="auto">
+</p></div></details><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><h1 id="b9120fd6-daf0-831a-8c12-81114e8249ab" style="display:inline-block"><strong>PHASE 3: Generative AI </strong></h1></summary><div class="indented"><details id="79020fd6-daf0-8266-885b-81123ae0e945" open="" class="toggle" dir="auto"><summary><strong>Module 1: Generative AI &amp; Agent Fundamentals</strong></summary><div class="indented"><h3 id="f6720fd6-daf0-83f4-85b4-01785c90a9d6" class="" dir="auto">Learning Objectives</h3><ul id="11b20fd6-daf0-83c6-bd03-01bfc6f023cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand what Generative AI is</li></ul><ul id="e3620fd6-daf0-83f5-ac82-81aa65b5ba8c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Learn about AI Agents and their architecture</li></ul><ul id="b9a20fd6-daf0-830e-bbeb-012d677e9443" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand different agent types</li></ul><details id="5c620fd6-daf0-83e0-a262-81d0b7c04b9a" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><details id="57820fd6-daf0-8375-a6a9-01a96ecdc1d2" open="" class="toggle" dir="auto"><summary>What is AI Agent?</summary><div class="indented"><ul id="6bf20fd6-daf0-8292-b890-010e29a7a126" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-an-ai-agent">https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-an-ai-agent</a></li></ul><ul id="ecb20fd6-daf0-828c-bea9-814cb5a6aff8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.ibm.com/think/topics/ai-agents">https://www.ibm.com/think/topics/ai-agents</a></li></ul></div></details><details id="06320fd6-daf0-828a-aaa1-018c51cd51f8" open="" class="toggle" dir="auto"><summary>Agentic AI Architectures And Design Patterns</summary><div class="indented"><ul id="c6520fd6-daf0-829e-b29c-81bca69fc35f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://medium.com/%40bijit211987/agentic-design-patterns-cbd0aae2962f">&quot;Agent Design Patterns&quot;</a> </li></ul><ul id="95620fd6-daf0-8352-9a6e-01ab96f04a32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://medium.com/%40anil.jain.baba/agentic-ai-architectures-and-design-patterns-288ac589179a">Agentic AI Architectures And Design Patterns</a></li></ul></div></details><ul id="8c920fd6-daf0-832d-9bf9-01ef4ccbbaf2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/why-agents-are-the-next-frontier-of-generative-ai">Why agents are the next frontier of generative AI</a></li></ul><ul id="f7320fd6-daf0-8300-a1c4-815c93f11fda" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>OpenAI Documentation:</strong> <a href="https://platform.openai.com/docs/">https://platform.openai.com/docs/</a></li></ul></div></details><details id="46320fd6-daf0-82ba-84b0-81ae003b0751" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="4c620fd6-daf0-820a-aaeb-01f2786e75ce" class="" dir="auto">You are asked to provide a <strong>report of about 200-300 words</strong> covering the following points:</p><ul id="10020fd6-daf0-83a6-92e5-81c12b52afca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 1:</strong> What generative AI is, what an AI agent is, and one example.</li></ul><ul id="c1c20fd6-daf0-82f3-ad7f-817c39c68896" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 2:</strong> Agent architecture and decision-making.</li></ul><ul id="18720fd6-daf0-8232-a130-813843cdc18c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 3:</strong> Compare different agent frameworks and design patterns.</li></ul></div></details></div></details><details id="67c20fd6-daf0-833f-8771-818859a73dc5" open="" class="toggle" dir="auto"><summary><strong>Module 2: AI Product Engineering</strong></summary><div class="indented"><h3 id="94720fd6-daf0-824b-bf20-81ecdcd0636c" class="" dir="auto">Learning Objectives</h3><ul id="24220fd6-daf0-8260-b7ce-012d783b9e46" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Design AI-powered products</li></ul><ul id="43620fd6-daf0-820d-864e-01e5e884af9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand product management for AI</li></ul><details id="04720fd6-daf0-82cd-969b-81736b80155d" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><p id="f5c20fd6-daf0-82bd-b2a4-81da035aa065" class="" dir="auto"><a href="https://zen-liu.medium.com/a-practical-guide-for-product-managers-building-ai-powered-products-d73c05c01b55">https://zen-liu.medium.com/a-practical-guide-for-product-managers-building-ai-powered-products-d73c05c01b55</a></p><p id="03820fd6-daf0-82e2-bbb2-81e6ed3b246d" class="" dir="auto"><a href="https://www.youtube.com/watch?v=xoGwsV53-VQ">https://www.youtube.com/watch?v=xoGwsV53-VQ</a></p></div></details><details id="b5020fd6-daf0-8210-852b-8180c77175f6" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="0b620fd6-daf0-8269-bacf-01bcf67ded47" class="" dir="auto">Task: Create User Stories for AI Features<div class="indented"><p id="5f920fd6-daf0-82f9-8ed6-817ae1da21bb" class="" dir="auto">Imagine your product includes an AI agent for autonomous monitoring. Your task is to craft <strong>one detailed user story</strong> for that agent‑feature. Use the standard user‑story format, then add acceptance criteria and AI‑specific considerations (confidence, override, transparency, etc.).</p><p id="f6e20fd6-daf0-82fe-9153-81906921be79" class="" dir="auto"><strong>Deliverables:</strong></p><ol type="1" id="41920fd6-daf0-82ff-a9c1-010086975d65" class="numbered-list" start="1" dir="auto"><li><strong>User Story </strong>— formatted like:<p id="c0a20fd6-daf0-8242-9bc9-81cb6137010a" class="" dir="auto">As a [user role], I want [capability] so that [benefit].</p></li></ol><ol type="1" id="c9920fd6-daf0-82d8-887d-81c96a3d1b44" class="numbered-list" start="2" dir="auto"><li><strong>Acceptance Criteria</strong> — list at least 4‑6 criteria, preferably using Given‑When‑Then or bullet format; ensure they are testable.</li></ol><ol type="1" id="b2e20fd6-daf0-829b-8667-8159fe8cbbde" class="numbered-list" start="3" dir="auto"><li><strong>AI‑Specific Considerations</strong> — outline how your user story addresses:<ul id="c6520fd6-daf0-836d-bbc0-017008d52837" class="bulleted-list" dir="auto"><li style="list-style-type:disc">What happens if the AI agent’s confidence is low?</li></ul><ul id="a0c20fd6-daf0-8300-bcfc-81b6354938bc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">How the user can override or correct the agent’s recommendation/decision.</li></ul><ul id="b3620fd6-daf0-8277-979f-8161df5ab1aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">How transparency or trust is provided to the user (e.g., confidence score, explanation).</li></ul><ul id="b4720fd6-daf0-82a8-995d-817f5edd0807" class="bulleted-list" dir="auto"><li style="list-style-type:disc">What fallback logic or human‑in‑loop path you include.</li></ul></li></ol><p id="f8d20fd6-daf0-82f2-84c2-015d0519f9bb" class="" dir="auto">
+</p><p id="06220fd6-daf0-8356-99ff-0116f55eb858" class="" dir="auto">
+</p></div></p></div></details></div></details><details id="abb20fd6-daf0-8313-b93f-01e3383085cd" open="" class="toggle" dir="auto"><summary><strong>Module 3: Retrieval-Augmented Generation (RAG)</strong></summary><div class="indented"><h3 id="05420fd6-daf0-830d-b3de-01bd4c04e69c" class="" dir="auto">Learning Objectives</h3><ul id="6f920fd6-daf0-823d-b79f-81f34bbf1fe0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand RAG architecture and workflow</li></ul><ul id="57120fd6-daf0-824e-a599-0126c9dc0598" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Build retrieval systems</li></ul><ul id="51620fd6-daf0-82be-85e4-0140c4403cce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Integrate with LLMs for enhanced responses</li></ul><details id="43120fd6-daf0-821e-9cb9-012562711d7c" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><p id="71020fd6-daf0-8284-a20e-81fb88289779" class="" dir="auto"><a href="https://www.youtube.com/watch?v=T-D1OfcDW1M">https://www.youtube.com/watch?v=T-D1OfcDW1M</a></p><p id="01c20fd6-daf0-82ba-a330-01e82cebe960" class="" dir="auto"><a href="https://aws.amazon.com/what-is/retrieval-augmented-generation/">https://aws.amazon.com/what-is/retrieval-augmented-generation/</a></p><p id="4d820fd6-daf0-82e6-bf88-819a7d23abd4" class="" dir="auto"><a href="https://www.pinecone.io/learn/vector-database/">https://www.pinecone.io/learn/vector-database/</a></p></div></details><details id="08020fd6-daf0-831f-b0fc-81db544085e7" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><h3 id="10520fd6-daf0-83a0-ab9e-81500dc43b8b" class="" dir="auto">Tasks &amp; Assignments</h3><p id="d7d20fd6-daf0-82be-a9f9-01907562d8db" class="" dir="auto">Your Task is to build a RAG pipeline in order to answer questions based on the content of a PDF document. You will learn how to process documents, create embeddings, implement semantic search, and integrate with an LLM (OpenAI API) to generate accurate answers. This exercise will help you understand how RAG combines</p><p id="b2420fd6-daf0-824e-81a0-811c2558b9d0" class="" dir="auto">Use the provided PDF: </p><figure id="99420fd6-daf0-8221-86e4-8114dbe05870" dir="ltr"><div class="source"><a href="Flowless%20AI%20Training%20Roadmap/water_doc.pdf" data-notion-file="Flowless%20AI%20Training%20Roadmap/water_doc.pdf" data-notion-file-alias="water_doc.pdf">water_doc.pdf</a></div></figure><p id="12320fd6-daf0-8223-94c4-8108c2e37e0b" class="" dir="auto">To solve this tasks </p><ul id="e6420fd6-daf0-8278-bc7d-81c336c9f89b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 1: </strong>Load PDF content using free libraries</li></ul><ul id="d6620fd6-daf0-8212-be1e-01d397f10e5b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 2: </strong>Split text into chunks </li></ul><ul id="b8d20fd6-daf0-83d1-9367-011f8709a42e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 3: </strong>Generate embeddings for each chunk using <code>sentence-transformers</code> (<code>all-MiniLM-L6-v2</code>)</li></ul><ul id="12f20fd6-daf0-83e4-8573-81991e39174d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 4: </strong>Store embeddings in memory or a free vector database (<code>FAISS</code> or <code>Chroma</code>, …)</li></ul><ul id="e5520fd6-daf0-8339-88eb-8194eddec9a7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 5: </strong>Implement semantic search to retrieve top 2–3 chunks based on user query</li></ul><ul id="07b20fd6-daf0-83b6-a579-01e185c00e22" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 6: </strong>Integrate retrieved chunks with an LLM like open ai </li></ul><ul id="f0020fd6-daf0-83a2-ab94-81676ca803c9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 7: </strong>Test pipeline with sample questions on the data </li></ul><ul id="a7020fd6-daf0-821d-932c-8181eece2220" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Task 8: </strong>Optimize chunk size, number of retrieved chunks, or embedding model for relevance</li></ul><p id="5ca20fd6-daf0-831d-a4d9-01bed6ac34f3" class="" dir="auto">
+</p></div></details><p id="04920fd6-daf0-83b1-956f-81d19099f762" class="" dir="auto">
+</p></div></details><details id="a8420fd6-daf0-83e1-8200-01e61932d9b2" open="" class="toggle" dir="auto"><summary><strong>Module 4: Prompt Engineering &amp; Context Engineering</strong></summary><div class="indented"><h3 id="db320fd6-daf0-82eb-a4e1-81e97c2bb088" class="" dir="auto">Learning Objectives</h3><ul id="88920fd6-daf0-82ef-9b39-0106fccd355c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Master prompt engineering techniques</li></ul><ul id="b3f20fd6-daf0-82cd-8eb2-013355a7129f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Optimize context windows</li></ul><ul id="b9820fd6-daf0-83ba-bcd0-8163f4ad61e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Create effective prompts for different tasks</li></ul><details id="c5f20fd6-daf0-823a-a1cd-011c64959b53" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><ul id="ac420fd6-daf0-823b-a07a-01426c40a905" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Prompt Engineering Guide:</strong> <a href="https://www.promptingguide.ai/">https://www.promptingguide.ai</a>/</li></ul><ul id="fe720fd6-daf0-835f-bf6a-0173d1584ff3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>OpenAI Prompt Best Practices:</strong> <a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/">https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/</a></li></ul><ul id="4d120fd6-daf0-8389-a4fb-8145ab2be5d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.datacamp.com/blog/context-engineering">https://www.datacamp.com/blog/context-engineering</a></li></ul></div></details><details id="c4320fd6-daf0-83a4-9875-81971ec2797d" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="d7d20fd6-daf0-8366-9e0a-819673fb519a" class="" dir="auto"><strong>Build a Code Review prompt to use in an agent</strong></p><p id="bf120fd6-daf0-83bf-8a96-814a217938f6" class="" dir="auto">Apply prompt and context engineering techniques to create an AI agent that can review code, suggest improvements, and explain issues.</p><p id="82c20fd6-daf0-83c4-a123-0103963a7586" class="" dir="auto">Task Steps:</p><ul id="4ec20fd6-daf0-834a-88e8-0117173aba7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Define the Agent Role</strong></li></ul><ul id="10320fd6-daf0-83d2-ad9e-8191957fb5cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Select Code Snippets for Review</strong></li></ul><ul id="86e20fd6-daf0-8347-b4ba-01a266e6b571" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Write a Base Prompt</strong></li></ul><ul id="7c420fd6-daf0-8328-a69d-81074c169f04" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enhance with Context Engineering</strong></li></ul><ul id="61020fd6-daf0-828a-8b28-81097b2aa993" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Experiment with Prompt Variations<br/></strong></li></ul></div></details></div></details><details id="d5920fd6-daf0-8285-8da7-8168fcf17eec" open="" class="toggle" dir="auto"><summary><strong>Module 5: LangChain &amp; Building Agents</strong></summary><div class="indented"><h3 id="ec320fd6-daf0-8221-9ca8-81da0054413e" class="" dir="auto">Learning Objectives</h3><ul id="6c520fd6-daf0-83ed-9bb0-813e4c6005bc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Build agentic workflows with LangChain</li></ul><ul id="f5320fd6-daf0-8321-b37c-01706e6f534c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implement agent tools and chains</li></ul><ul id="8b320fd6-daf0-8399-b036-0165ab72a0f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Create production-ready agents</li></ul><details id="58a20fd6-daf0-8359-96f6-01a42d362627" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><ul id="90b20fd6-daf0-822d-91a5-015bfb9b3341" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>LangChain Documentation:</strong> <a href="https://python.langchain.com/">https://python.langchain.com/</a></li></ul><ul id="56420fd6-daf0-8294-89f0-012fce6d1827" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://github.com/alphasecio/langchain-examples">https://github.com/alphasecio/langchain-examples</a></li></ul></div></details><details id="88720fd6-daf0-82ff-a7cb-011509d76921" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><h3 id="26120fd6-daf0-82bd-bf2c-81e1fab31c6d" class="" dir="auto">Tasks &amp; Assignments</h3><p id="73720fd6-daf0-834b-9367-81977d07f1a2" class="" dir="auto">Assist water utility managers in monitoring, analyzing, and reporting on water system performance. By creating an AI Agent that do<div class="indented"><ul id="2d020fd6-daf0-8354-ad1a-015caedeb4c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Data Retrieval</strong><ul id="a6a20fd6-daf0-82f7-8a1e-018163783cff" class="bulleted-list" dir="auto"><li style="list-style-type:circle">use this file in order to build your agent <figure id="8b520fd6-daf0-83cc-b8a7-81137de79e46" dir="ltr"><div class="source"><a href="Flowless%20AI%20Training%20Roadmap/water_meter_30days.csv" data-notion-file="Flowless%20AI%20Training%20Roadmap/water_meter_30days.csv" data-notion-file-alias="water_meter_30days.csv">water_meter_30days.csv</a></div></figure></li></ul></li></ul><ul id="dd420fd6-daf0-83a6-b216-01737b4e55b7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Data Analysis</strong><ul id="44b20fd6-daf0-8279-9a00-8164c5664589" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Detect anomalies (e.g., leaks, unusual pressure drops).</li></ul><ul id="64a20fd6-daf0-82be-b7eb-015b85b9a857" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Calculate key metrics (total demand, leak volume, efficiency).</li></ul></li></ul><ul id="94520fd6-daf0-836b-bf8d-813eb846e55c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reasoning &amp; Recommendations</strong><ul id="66320fd6-daf0-82eb-bce7-81c9b11b9e24" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Determine possible causes of anomalies.</li></ul><ul id="02520fd6-daf0-82ef-bf69-811a2ec1a4b0" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Suggest corrective actions (e.g., inspect a pipeline, adjust pump schedules).</li></ul></li></ul><ul id="a2920fd6-daf0-820e-9e12-017dc60885aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reporting</strong><ul id="f6720fd6-daf0-82a5-ae1e-017dfde7837f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Summarize findings in natural language.</li></ul></li></ul><ul id="a4d20fd6-daf0-83e4-9411-0125566389e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tool Integration</strong><ul id="a4d20fd6-daf0-82f0-b836-018ace30fc6b" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Use APIs for fetching additional info (e.g., weather data affecting water demand).</li></ul><ul id="4d920fd6-daf0-83a2-b6a7-01f71c26878f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Handle errors and missing data gracefully.</li></ul></li></ul></div></p></div></details></div></details><details id="ad620fd6-daf0-8258-8b52-81c7e3a072ed" open="" class="toggle" dir="auto"><summary><strong>Module 6: Model Context Protocol (MCP)</strong></summary><div class="indented"><h3 id="46420fd6-daf0-83ba-aec7-0183f1a00f0e" class="" dir="auto">Learning Objectives</h3><ul id="fcc20fd6-daf0-8270-a285-81001ec1ee12" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Understand MCP standards</li></ul><ul id="12920fd6-daf0-832d-abb0-0115fa75cbe3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Build MCP servers for external resources</li></ul><ul id="9d620fd6-daf0-83a7-925e-8177ae0a70d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Integrate MCP with agents</li></ul><details id="9cf20fd6-daf0-832e-85f0-0155ffc0275d" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><ul id="1b720fd6-daf0-821d-a233-81c6b63ae122" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://modelcontextprotocol.io/docs/getting-started/intro">https://modelcontextprotocol.io/docs/getting-started/intro</a></li></ul><ul id="92a20fd6-daf0-8217-b376-8156a6e8051e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://github.com/modelcontextprotocol/">https://github.com/modelcontextprotocol/</a></li></ul><ul id="c6220fd6-daf0-83eb-bc21-8183e683ebb2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://github.com/modelcontextprotocol/servers?tab=readme-ov-file">https://github.com/modelcontextprotocol/servers?tab=readme-ov-file</a></li></ul><ul id="dfd20fd6-daf0-8371-940d-81d7d2cc84fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/">https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/</a></li></ul></div></details><details id="ec320fd6-daf0-8283-87fe-01d1464ab753" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="b2820fd6-daf0-83b8-9123-01a83ff54bf8" class="" dir="auto">Your Task is to build an MCP server that exposes external APIs as resources for AI agent. The MCP server should provide metadata about each API and allow dynamic queries.</p><p id="e1a20fd6-daf0-836a-84c1-81301917e35d" class="" dir="auto"><strong>Requirements and steps:</strong></p><ol type="1" id="f2720fd6-daf0-832a-addb-0119211ee9a1" class="numbered-list" start="1" dir="auto"><li>Use LangChain to wrap each API as a <strong>Tool</strong> for the agent </li></ol><ol type="1" id="53720fd6-daf0-82f0-817c-0108e32f6751" class="numbered-list" start="2" dir="auto"><li>Define MCP metadata endpoints</li></ol><ol type="1" id="85520fd6-daf0-825a-a6c3-01beb77a4615" class="numbered-list" start="3" dir="auto"><li>Implement MCP query endpoint</li></ol><ol type="1" id="35120fd6-daf0-826b-90c7-01fb86dde790" class="numbered-list" start="4" dir="auto"><li>Combine multiple tools into an agent</li></ol><ol type="1" id="af320fd6-daf0-82f8-ada1-811f35b923eb" class="numbered-list" start="5" dir="auto"><li>Test the MCP server</li></ol><details id="b8120fd6-daf0-834a-97c2-01f2cde06ee5" open="" class="toggle" dir="auto"><summary>Example of APIs that you can Integrate:</summary><div class="indented"><ol type="1" id="06a20fd6-daf0-8258-83c5-017916878fcb" class="numbered-list" start="1" dir="auto"><li>OpenWeatherMap → Current weather by city</li></ol><ol type="1" id="15a20fd6-daf0-83db-ad98-81819a51c385" class="numbered-list" start="2" dir="auto"><li>CoinGecko → Cryptocurrency price in USD</li></ol><ol type="1" id="b1820fd6-daf0-83a6-99e8-015f5f0cfbe6" class="numbered-list" start="3" dir="auto"><li>COVID-19 Global Stats → Latest pandemic statistics</li></ol><ol type="1" id="84420fd6-daf0-8268-93b9-01e0387647b6" class="numbered-list" start="4" dir="auto"><li>Optional: Add at least one more public API of your choice</li></ol></div></details></div></details><p id="da020fd6-daf0-82ab-9835-018dd756c82d" class="" dir="auto">
+</p></div></details><details id="f0820fd6-daf0-83b9-987c-81b407ed2cd8" open="" class="toggle" dir="auto"><summary><strong>Module 7: Multi-Agent Systems </strong></summary><div class="indented"><h3 id="04420fd6-daf0-82ca-a9aa-01fb991efa7b" class="" dir="auto">Learning Objectives</h3><ul id="b0220fd6-daf0-82ae-ad13-0116131666de" class="bulleted-list" dir="auto"><li style="list-style-type:disc">learn more about Multi Agent and why we need it</li></ul><ul id="45320fd6-daf0-83d7-8e7d-0197423d0ac8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Design multi-agent systems</li></ul><ul id="ecb20fd6-daf0-83d2-b726-81acd3cd091b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Coordinate agents for complex tasks</li></ul><ul id="aa020fd6-daf0-8308-9e68-01d6f2f78680" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Use CrewAI framework as an example</li></ul><details id="b8520fd6-daf0-82a8-8943-012dbcaa9362" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><ul id="ee320fd6-daf0-82cc-b73f-01f441d2e94e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.ibm.com/think/topics/multiagent-system">https://www.ibm.com/think/topics/multiagent-system</a></li></ul><ul id="7cf20fd6-daf0-8305-bcb8-01d774bad4ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.house-of-communication.com/de/en/brands/plan-net/landingpages/agentic-services/7-reasons-for-multi-agent-systems.html">https://www.house-of-communication.com/de/en/brands/plan-net/landingpages/agentic-services/7-reasons-for-multi-agent-systems.html</a></li></ul><ul id="b8e20fd6-daf0-83a4-ad37-01d609a23b10" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/">https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/</a></li></ul></div></details><details id="91720fd6-daf0-83c5-9f9e-01be5eac1e0d" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="b8e20fd6-daf0-831b-83f3-811b5fda9a46" class="" dir="auto">Your task is to Build a multi‑agent system in CrewAI that automates lead qualification from client outreach → research → scoring → summarisation/reporting.</p><p id="a0020fd6-daf0-83a9-a1e0-81a1461dbd1d" class="" dir="auto">You need three agents here: Researcher Agent, Scoring Agent and Report Writer Agent </p><p id="85420fd6-daf0-83b6-b440-01c7dcd78cc4" class="" dir="auto">For each agent you should specify: role, goal, back‑story (to give persona), tools enabled (e.g., web search, company database lookup, csv lookup), memory configuration.<br/>Example question:- “Find potential leads in the healthcare sector in the US.”<br/></p></div></details></div></details><details id="dba20fd6-daf0-821d-8dca-01fb2cb9c6d8" open="" class="toggle" dir="auto"><summary><mark class="highlight-red_background" data-notion-highlight="red_background"><strong>Module 8: AI Evaluation &amp; Benchmarking</strong></mark></summary><div class="indented"><h3 id="70520fd6-daf0-82e6-93ac-81ecf1244568" class="" dir="auto">Learning Objectives</h3><ul id="1d720fd6-daf0-82fc-8e44-812de57863e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evaluate AI model outputs</li></ul><ul id="70620fd6-daf0-8250-b4bd-81b3de6c8204" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Benchmark agent performance</li></ul><ul id="10820fd6-daf0-82d3-af48-8104fccd50e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implement scoring and rubrics</li></ul><details id="1ab20fd6-daf0-83e4-bc08-815479b0d7c0" open="" class="toggle" dir="auto"><summary><strong>Resources to learn</strong></summary><div class="indented"><ul id="90d20fd6-daf0-8358-8bdb-01781ba4103c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://aws.amazon.com/blogs/apn/transform-large-language-model-observability-with-langfuse/">https://aws.amazon.com/blogs/apn/transform-large-language-model-observability-with-langfuse/</a></li></ul><ul id="c9020fd6-daf0-83eb-9726-018b3f74601d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://medium.com/@Shamimw/langfuse-observability-analytics-for-llm-powered-applications-40ce353b4894">https://medium.com/@Shamimw/langfuse-observability-analytics-for-llm-powered-applications-40ce353b4894</a></li></ul><ul id="57d20fd6-daf0-82ab-b8b7-8112094fb9ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.productcompass.pm/p/ai-observability-evaluation-platforms">https://www.productcompass.pm/p/ai-observability-evaluation-platforms</a></li></ul><ul id="6ce20fd6-daf0-82fe-b023-01718162bab3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://www.productcompass.pm/p/how-to-evaluate-ai-agents-n8n">https://www.productcompass.pm/p/how-to-evaluate-ai-agents-n8n</a></li></ul></div></details><details id="ca820fd6-daf0-839e-b6cb-0164048f417f" open="" class="toggle" dir="auto"><summary><strong>Practical Tasks</strong></summary><div class="indented"><p id="e4620fd6-daf0-8294-8844-0169c58041b2" class="" dir="auto">continue in the previous project. Integrate langfuse with your agent </p></div></details></div></details><p id="aa120fd6-daf0-82eb-9636-019c144bab79" class="" dir="auto">
+</p></div></details><details open="" class="" dir="auto"><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><h1 id="9cd20fd6-daf0-82b7-9706-81e311dd2138" style="display:inline-block">Final Project </h1></summary><div class="indented"><h3 id="0a620fd6-daf0-82ff-a16c-8131b237c9e8" class="" dir="auto">Project: End-to-End Data Science Pipeline</h3><p id="41320fd6-daf0-8292-ab9e-01ac38ab56de" class="" dir="auto">Build a complete mini app data science project using <a href="https://streamlit.io/">https://streamlit.io/</a> that include data collection, analysis, and deployment.</p><p id="5b020fd6-daf0-8206-8d75-81f07ce0f5f1" class="" dir="auto"><strong>Deliverables:</strong></p><ul id="e5d20fd6-daf0-83d7-a160-01140ec7eb01" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Data exploration report with visualizations</li></ul><ul id="2ef20fd6-daf0-8297-8f51-012b927f1d51" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Trained ML model with evaluation metrics</li></ul><ul id="5cb20fd6-daf0-8363-9858-814c28d4de1d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Deployed model as API</li></ul><ul id="4ca20fd6-daf0-82e1-b0f1-81da4ab742fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">chat with your model to get the final answer </li></ul></div></details><p id="92a20fd6-daf0-833c-8760-813d3ee1250e" class="" dir="auto">
+</p><p id="16120fd6-daf0-8204-885a-815923e8fb0b" class="" dir="auto">
+</p><p id="9eb20fd6-daf0-828b-bfac-81e1835f5144" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
