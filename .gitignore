@@ -6,3 +6,8 @@ venv/
 env/
 .env
 .DS_Store
+.venv*/
+mytest/build/
+mytest/dist/
+phase-1/mytest/build/
+phase-1/mytest/dist/
