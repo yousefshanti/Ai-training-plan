@@ -28,27 +28,3 @@ My work through the [Flowless AI Training Roadmap](roadmap/): Python foundations
 | Final Project | End-to-End Data Science Pipeline (Streamlit) | ⬜ | — | [#16](https://github.com/yousefshanti/Ai-training-plan/issues/16) |
 
 ✅ done · 🚧 in progress · ⬜ to do
-
-## Milestones
-
-| Tag | Meaning |
-|---|---|
-| `phase-1-complete` | Phase 1 finished |
-| `phase-2-complete` | Phase 2 finished |
-| `rag-project-done` | RAG pipeline (Phase 3 Module 3) finished |
-| `prompt-engineering-done` | Prompt & context engineering (Phase 3 Module 4) finished |
-
-## Setup
-
-```bash
-pip install -r requirements.txt
-```
-
-The RAG pipeline needs a Groq API key in `phase-3/module-3-rag/.env` (`GROQ_API_KEY=...`). The file is git-ignored.
-
-The prompt engineering script reads `GROQ_API_KEY` from the shell environment:
-
-```bash
-export GROQ_API_KEY=...
-python phase-3/module-4-prompt-engineering/m4.py
-```
